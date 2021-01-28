@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>AntDesign.Abp.Template</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AntDesign.Abp.Template.Domain\AntDesign.Abp.Template.Domain.csproj" />
+    <ProjectReference Include="..\AntDesign.Abp.Template.Application.Contracts\AntDesign.Abp.Template.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Account.Application" Version="4.1.2" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="4.1.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="4.1.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="4.1.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="4.1.2" />
+  </ItemGroup>
+
+</Project>
