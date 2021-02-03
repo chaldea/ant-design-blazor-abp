@@ -5,7 +5,10 @@ using AntDesign.Pro.Layout;
 using AntDesign.Abp.Template.Blazor.Models;
 using AntDesign.Abp.Template.Blazor.Services;
 using Microsoft.AspNetCore.Components;
-using AntDesign;
+using System;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Volo.Abp.Localization;
+using Microsoft.JSInterop;
 
 namespace AntDesign.Abp.Template.Blazor.Components
 {
@@ -16,6 +19,9 @@ namespace AntDesign.Abp.Template.Blazor.Components
         private NoticeIconData[] _messages = { };
         private NoticeIconData[] _events = { };
         private int _count = 0;
+        private string[] _locales = { };
+        private Dictionary<string, string> _languageLabels = new();
+        private Dictionary<string, string> _languageIcons = new();
 
         private List<AutoCompleteDataItem<string>> DefaultOptions { get; set; } = new List<AutoCompleteDataItem<string>>
         {
@@ -37,10 +43,12 @@ namespace AntDesign.Abp.Template.Blazor.Components
         };
 
         [Inject] protected NavigationManager NavigationManager { get; set; }
-
         [Inject] protected IUserService UserService { get; set; }
         [Inject] protected IProjectService ProjectService { get; set; }
         [Inject] protected MessageService MessageService { get; set; }
+        [Inject] protected SignOutSessionStateManager SignOutManager { get; set; }
+        [Inject] protected ILanguageProvider LanguageProvider { get; set; }
+        [Inject] protected IJSRuntime JsRuntime { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -52,6 +60,11 @@ namespace AntDesign.Abp.Template.Blazor.Components
             _messages = notices.Where(x => x.Type == "message").Cast<NoticeIconData>().ToArray();
             _events = notices.Where(x => x.Type == "event").Cast<NoticeIconData>().ToArray();
             _count = notices.Length;
+
+            var langs = await LanguageProvider.GetLanguagesAsync();
+            _locales = langs.Select(x => x.CultureName).ToArray();
+            _languageLabels = langs.ToDictionary(x => x.CultureName, y => y.DisplayName);
+            _languageIcons = langs.ToDictionary(x => x.CultureName, y => y.FlagIcon);
         }
 
         protected void SetClassMap()
@@ -61,7 +74,7 @@ namespace AntDesign.Abp.Template.Blazor.Components
                 .Add("right");
         }
 
-        public void HandleSelectUser(MenuItem item)
+        public async Task HandleSelectUser(MenuItem item)
         {
             switch (item.Key)
             {
@@ -72,13 +85,21 @@ namespace AntDesign.Abp.Template.Blazor.Components
                     NavigationManager.NavigateTo("/account/settings");
                     break;
                 case "logout":
-                    NavigationManager.NavigateTo("/user/login");
+                    await SignOutManager.SetSignOutState();
+                    NavigationManager.NavigateTo($"authentication/logout?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}");
                     break;
             }
         }
 
-        public void HandleSelectLang(MenuItem item)
+        public async Task HandleSelectLang(MenuItem item)
         {
+            await JsRuntime.InvokeVoidAsync(
+                "localStorage.setItem",
+                "Abp.SelectedLanguage",
+                item.Key
+            );
+
+            await JsRuntime.InvokeVoidAsync("location.reload");
         }
 
         public async Task HandleClear(string key)

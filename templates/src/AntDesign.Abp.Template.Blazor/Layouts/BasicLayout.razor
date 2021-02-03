@@ -1,11 +1,13 @@
 ﻿@namespace AntDesign.Abp.Template.Blazor
+@using Volo.Abp.UI.Navigation
+@using AntDesign.Abp.Template.Blazor.Menus
 @inherits LayoutComponentBase
 
 <AntDesign.Pro.Layout.BasicLayout 
     Logo="@("https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg")"
     MenuData="_menuData">
     <RightContentRender>
-        <RightContent />
+        <AntDesign.Abp.Template.Blazor.Components.RightContent />
     </RightContentRender>
     <ChildContent>
         @Body
@@ -17,11 +19,58 @@
 {
     private MenuDataItem[] _menuData = {};
 
+    [Inject] public IMenuManager MenuManager { get; set; }
+
     [Inject] public HttpClient HttpClient { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        _menuData = await HttpClient.GetFromJsonAsync<MenuDataItem[]>("data/menu.json");
+        var appMenu = await MenuManager.GetAsync(StandardMenus.Main);
+        var menu = new List<MenuDataItem>();
+        InitMenu(menu, appMenu.Items, null);
+        _menuData = menu.ToArray();
+    }
+
+    private void InitMenu(List<MenuDataItem> menu, ApplicationMenuItemList items, MenuDataItem root)
+    {
+        if (root == null)
+        {
+            foreach (var item in items)
+            {
+                var newRoot = new MenuDataItem
+                {
+                    Path = item.Url,
+                    Name = item.DisplayName,
+                    Key = item.Name,
+                    Icon = item.Icon
+                };
+                menu.Add(newRoot);
+                if (item.Items.Count > 0)
+                {
+                    InitMenu(menu, item.Items, newRoot);
+                }
+            }
+        }
+        else
+        {
+            root.Children = new MenuDataItem[items.Count];
+            for (var i = 0; i < items.Count; i++)
+            {
+                var item = items[i];
+                var children = new MenuDataItem
+                {
+                    Path = item.Url,
+                    Name = item.DisplayName,
+                    Key = item.Name,
+                    Icon = item.Icon
+                };
+                root.Children[i] = children;
+                if (item.Items.Count > 0)
+                {
+                    InitMenu(menu, item.Items, children);
+                }
+            }
+        }
     }
 }

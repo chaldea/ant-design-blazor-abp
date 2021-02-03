@@ -36,4 +36,9 @@
     <None Remove="Logs\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Pages\Account\Login.cshtml" />
+    <None Include="Pages\_ViewImports.cshtml" />
+  </ItemGroup>
+
 </Project>
