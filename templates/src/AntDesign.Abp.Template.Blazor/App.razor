@@ -2,7 +2,6 @@
 <CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly">
         <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(BasicLayout)" />
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(BasicLayout)">
                 <NotAuthorized>
                     @if (!context.User.Identity.IsAuthenticated)
