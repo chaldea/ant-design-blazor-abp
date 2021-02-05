@@ -1,0 +1,14 @@
+﻿<GlobalFooter Links="_links">
+    <Copyright>
+        Copyright <Icon Type="copyright" /> 2019 蚂蚁金服体验技术部出品
+    </Copyright>
+</GlobalFooter>
+@code
+{
+    private readonly LinkItem[] _links =
+    {
+        new LinkItem{ Key = "", BlankTarget = true, Title = "Ant Design Pro"},
+        new LinkItem{ Key = "", BlankTarget = true, Title = OneOf<string, RenderFragment>.FromT1(@<Icon Type="github" />)},
+        new LinkItem{ Key = "", BlankTarget = true, Title = "Ant Design"},
+    };
+}

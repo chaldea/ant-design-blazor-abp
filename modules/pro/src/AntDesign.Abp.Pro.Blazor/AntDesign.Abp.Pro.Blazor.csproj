@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+	<OutputType>Library</OutputType>
+	<IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AntDesign" Version="0.6.0-*" />
+    <PackageReference Include="AntDesign.Charts" Version="0.2.0-*" />
+    <PackageReference Include="AntDesign.Pro.Layout" Version="0.1.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.UI.Navigation" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AntDesign.Abp.Pro.HttpApi.Client\AntDesign.Abp.Pro.HttpApi.Client.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,15 @@
+﻿<div class="ant-form-item ant-row">
+    <div class="ant-form-item-control ant-col">
+        <div class="ant-form-item-control-input">
+            <div class="ant-form-item-control-input-content">
+                @ChildContent
+            </div>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    [Parameter] 
+    public RenderFragment ChildContent { get; set; }
+}

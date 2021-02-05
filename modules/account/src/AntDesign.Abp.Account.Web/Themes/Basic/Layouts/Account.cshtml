@@ -1,0 +1,67 @@
+﻿@using AntDesign.Abp.Account.Web.Components
+@using Microsoft.Extensions.Localization
+@using Microsoft.Extensions.Options
+@using Volo.Abp.AspNetCore.MultiTenancy
+@using Volo.Abp.AspNetCore.Mvc.UI.Components.LayoutHook
+@using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.MainNavbar
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.PageAlerts
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetScripts
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetStyles
+@using Volo.Abp.MultiTenancy
+@using Volo.Abp.Localization
+@using Volo.Abp.Ui.Branding
+@inject IBrandingProvider BrandingProvider
+@inject IOptions<AbpMultiTenancyOptions> MultiTenancyOptions
+@inject ICurrentTenant CurrentTenant
+@inject IStringLocalizer<AbpUiMultiTenancyResource> MultiTenancyStringLocalizer
+@inject ITenantResolveResultAccessor TenantResolveResultAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+    var containerClass = ViewBag.FluidLayout == true ? "container-fluid" : "container"; //TODO: Better and type-safe options
+    var rtl = CultureHelper.IsRtl ? "rtl" : string.Empty;
+}
+
+<!DOCTYPE html>
+
+<html dir="@rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>@(ViewBag.Title == null ? BrandingProvider.AppName : ViewBag.Title)</title>
+
+    @if (ViewBag.Description != null)
+    {
+        <meta name="description" content="@(ViewBag.Description as string)" />
+    }
+    <link href="~/libs/antdesign/css/ant-design-blazor.css" rel="stylesheet" />
+    <link href="~/libs/antdesign/css/ant-design-pro-layout-blazor.css" rel="stylesheet" />
+    <link href="~/libs/antdesign/css/ant-design-abp-balzor.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container__b__0">
+        <div class="lang">
+            <!--todo: selectLang-->
+        </div>
+        <div class="content">
+            <div class="top">
+                <div class="header">
+                    <a>
+                        <img alt="logo" class="logo" src="~/assets/logo.svg" />
+                        <span class="title">Ant Design</span>
+                    </a>
+                </div>
+                <div class="desc">Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+            </div>
+            @RenderBody()
+        </div>
+
+        <component type="typeof(Footer)" render-mode="ServerPrerendered" />
+    </div>
+</body>
+</html>

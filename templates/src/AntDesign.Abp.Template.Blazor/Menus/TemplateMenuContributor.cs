@@ -34,6 +34,8 @@ namespace AntDesign.Abp.Template.Blazor.Menus
         {
             var l = context.GetLocalizer<TemplateResource>();
             context.Menu.TryRemoveMenuItem(DefaultMenuNames.Application.Main.Administration);
+            var currentUser = context.ServiceProvider.GetRequiredService<ICurrentUser>();
+            
             // todo: separate into different modules.
             context.Menu.Items.Add(
                 new ApplicationMenuItem(
@@ -57,6 +59,8 @@ namespace AntDesign.Abp.Template.Blazor.Menus
                             l["Menu:DashboardWorkplace"],
                             "/dashboard/workplace"))
             );
+
+            if (!currentUser.IsAuthenticated) return Task.CompletedTask;
 
             context.Menu.Items.Add(
                 new ApplicationMenuItem(

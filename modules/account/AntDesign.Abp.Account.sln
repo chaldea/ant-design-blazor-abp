@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntDesign.Abp.Account.Web", "src\AntDesign.Abp.Account.Web\AntDesign.Abp.Account.Web.csproj", "{96D8F14D-7A6E-4AB1-926C-B86A1EC70239}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FF9C1B33-680A-48BA-A8C6-3E340846DBD7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96D8F14D-7A6E-4AB1-926C-B86A1EC70239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96D8F14D-7A6E-4AB1-926C-B86A1EC70239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96D8F14D-7A6E-4AB1-926C-B86A1EC70239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96D8F14D-7A6E-4AB1-926C-B86A1EC70239}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{96D8F14D-7A6E-4AB1-926C-B86A1EC70239} = {FF9C1B33-680A-48BA-A8C6-3E340846DBD7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7529207-9EFB-440B-A611-598CC0C7B7C7}
+	EndGlobalSection
+EndGlobal
